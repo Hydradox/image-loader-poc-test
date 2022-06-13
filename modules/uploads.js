@@ -33,10 +33,12 @@ export default {
                 filename = filename.join('.');
                 
                 // Rename file
-                renameSync(join(process.cwd(), 'data', filename + '.' + ext),
-                    join(process.cwd(), 'data', filename + '.' + ext.toLowerCase()));
+                let name = filename + '.' + ext.toLowerCase();
+
+                renameSync(join(process.cwd(), 'data', files['photos-input'][i].newFilename),
+                    join(process.cwd(), 'data', files['photos-input'][i].newFilename.toLowerCase()));
                 
-                imgParser.createThumbnails(files['photos-input'][i].filepath, files['photos-input'][i].newFilename);
+                imgParser.createThumbnails(files['photos-input'][i].filepath, files['photos-input'][i].newFilename.toLowerCase());
             }
         });
     }

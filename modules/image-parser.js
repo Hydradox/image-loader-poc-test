@@ -28,7 +28,7 @@ export default {
         sharp(route)
         .metadata()
         .then(metadata => {
-            console.log('Metadata::', metadata);
+            //console.log('Metadata::', metadata);
 
 
             // Create grid
@@ -60,7 +60,7 @@ export default {
                     })
                     .toBuffer()
                     .then(data => {
-                        writeFile(join(dir, '.thumbnails', '.fullscreen', '.' + name + '.png'), data, (err) => {
+                        writeFile(join(dir, '.thumbnails', '.fullscreen', name + '.png'), data, (err) => {
                             if(err) {
                                 console.log('Error::', err);
                             }
