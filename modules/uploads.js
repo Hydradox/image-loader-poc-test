@@ -26,19 +26,12 @@ export default {
 
             // Iterate through all photos
             for(let i = 0; i < files['photos-input'].length; i++) {
-                console.log(i + 1, ':', files['photos-input'][i].originalFilename);
-
-                let filename = files['photos-input'][i].newFilename.split('.');
-                let ext = filename.pop();
-                filename = filename.join('.');
-                
-                // Rename file
-                let name = filename + '.' + ext.toLowerCase();
+                let newName = files['photos-input'][i].newFilename;
 
                 renameSync(join(process.cwd(), 'data', files['photos-input'][i].newFilename),
-                    join(process.cwd(), 'data', files['photos-input'][i].newFilename.toLowerCase()));
+                    join(process.cwd(), 'data', newName.toLowerCase()));
                 
-                imgParser.createThumbnails(files['photos-input'][i].filepath, files['photos-input'][i].newFilename.toLowerCase());
+                imgParser.createThumbnails(files['photos-input'][i].filepath.replace(files['photos-input'][i].newFilename, newName), newName);
             }
         });
     }
