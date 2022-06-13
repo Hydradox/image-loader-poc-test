@@ -1,5 +1,5 @@
 // Import modules
-import { join } from 'path';
+import { join, sep } from 'path';
 import imgParser from './image-parser.js';
 import { renameSync } from 'fs';
 
@@ -26,12 +26,21 @@ export default {
 
             // Iterate through all photos
             for(let i = 0; i < files['photos-input'].length; i++) {
-                let newName = files['photos-input'][i].newFilename;
+                let path = files['photos-input'][i].filepath;
+                let newName = path.split(sep).pop();
+                let ext = '.' + newName.split('.').pop().toLowerCase();
 
-                renameSync(join(process.cwd(), 'data', files['photos-input'][i].newFilename),
-                    join(process.cwd(), 'data', newName.toLowerCase()));
+                // Pop last elements from path and add new name
+                newName = newName.substring(0, newName.lastIndexOf('.')) + ext;
+                path = path.substring(0, path.lastIndexOf(sep)) + sep + newName;
+
+                renameSync(files['photos-input'][i].filepath, join(process.cwd(), 'data', newName));
+
+                // Log
+                console.log('\nPath:', path);
+                console.log('Uploaded file:', newName + '\n');
                 
-                imgParser.createThumbnails(files['photos-input'][i].filepath.replace(files['photos-input'][i].newFilename, newName), newName);
+                imgParser.createThumbnails(path, newName);
             }
         });
     }

@@ -12,8 +12,7 @@ export default {
     createThumbnails: (route, name) => {
 
         // Get directory of file
-        let dir = route.substring(0, join(route).lastIndexOf(sep));
-        name = name.substring(0, name.lastIndexOf('.'));
+        let dir = route.substring(0, route.lastIndexOf(sep));
         console.log('DIR::', dir);
         console.log('Name::', name);
 
@@ -43,7 +42,7 @@ export default {
                     alphaQuality: 20,
                     effort: 3
                 })
-                .toFile(join(dir, '.thumbnails', '.grid', name + '.jpg'));
+                .toFile(join(dir, '.thumbnails', '.grid', name));
 
             
             // Create fullscreen
@@ -60,7 +59,7 @@ export default {
                     })
                     .toBuffer()
                     .then(data => {
-                        writeFile(join(dir, '.thumbnails', '.fullscreen', name + '.png'), data, (err) => {
+                        writeFile(join(dir, '.thumbnails', '.fullscreen', name), data, (err) => {
                             if(err) {
                                 console.log('Error::', err);
                             }
@@ -82,7 +81,7 @@ export default {
                     })
                     .toBuffer()
                     .then(data => {
-                        writeFile(join(dir, '.thumbnails', '.fullscreen', name + '.jpg'), data, (err) => {
+                        writeFile(join(dir, '.thumbnails', '.fullscreen', name), data, (err) => {
                             if(err) {
                                 console.log('Error::', err);
                             }
